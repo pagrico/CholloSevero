@@ -39,23 +39,28 @@ $chollos = $stmt->fetchAll(PDO::FETCH_ASSOC); // Obtener todos los registros com
                 </svg>
                 <span class="self-center whitespace-nowrap text-xl font-semibold">Chollosevero</span>
             </a>
-            <div class="mt-2 sm:mt-0 sm:flex md:order-2">
-                <?php if (isset($_SESSION['usuario'])): ?>
-                    <!-- Mostrar nombre de usuario si está logueado -->
-                    <span class="mr-3 text-sm font-medium text-blue-700">
-                        Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario']); ?>
-                    </span>
-                    <!-- Botón de cerrar sesión con el icono de cerrar -->
-                    <form action="" method="POST">
-                        <button type="submit" name="logout"
-                            class="text-sm text-red-500 hover:text-red-700 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="mr-2 h-5 w-5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M17.25 6.75l-6 6m0 0l-6-6M12.25 12.75V19a1 1 0 001 1h7a1 1 0 001-1v-7a1 1 0 00-1-1h-7a1 1 0 00-1 1v6.25" />
-                            </svg>
-                            Cerrar sesión
-                        </button>
+         <div class="mt-2 sm:mt-0 sm:flex md:order-2 flex items-center gap-5 p-1">
+    <?php if (isset($_SESSION['usuario'])): ?>
+        <!-- Mostrar nombre de usuario si está logueado -->
+        <span class="text-sm font-medium text-blue-700">
+            Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario']); ?>
+        </span>
+        <!-- Botón de cerrar sesión con el icono de cerrar -->
+        <form action="" method="POST">
+            <button type="submit" name="logout"
+                class="flex items-center justify-center gap-2 text-sm text-red-500 hover:text-red-700 p-2 rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 512 512" 
+                    class="text-red-500">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" 
+                        d="M320 176v-40a40 40 0 0 0-40-40H88a40 40 0 0 0-40 40v240a40 40 0 0 0 40 40h192a40 40 0 0 0 40-40v-40m64-160l80 80l-80 80m-193-80h273" />
+                </svg>
+                <span class="text-sm font-semibold">Cerrar sesión</span>
+            </button>
+        </form>
+
+</div>
+
+
                     </form>
                 <?php else: ?>
                     <!-- Si no está logueado, mostrar el botón de login -->
@@ -81,46 +86,49 @@ $chollos = $stmt->fetchAll(PDO::FETCH_ASSOC); // Obtener todos los registros com
 
     <!-- Product List -->
     <section class="py-10 bg-gray-100">
-        <div class="mx-auto grid max-w-6xl grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            <?php foreach ($chollos as $chollo): ?>
-                <article
-                    class="relative rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
-                    <a href="#">
-                        <div class="relative flex items-end overflow-hidden rounded-xl">
-                            <img src="<?php echo htmlspecialchars($chollo['imagen_chollo']); ?>"
-                                alt="<?php echo htmlspecialchars($chollo['titulo_chollo']); ?>" />
-                        </div>
+    <div class="mx-auto grid max-w-6xl grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <?php foreach ($chollos as $chollo): ?>
+            <article
+                class="relative rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
+                <a href="#">
+                    <!-- Contenedor de la imagen -->
+                    <div class="relative flex items-end overflow-hidden rounded-xl">
+                        <img src="<?php echo htmlspecialchars($chollo['imagen_chollo']); ?>" 
+                            alt="<?php echo htmlspecialchars($chollo['titulo_chollo']); ?>" 
+                            class="w-full h-48 object-cover rounded-xl" />
+                    </div>
 
-                        <div class="mt-1 p-2 mb-10">
-                            <h2 class="text-slate-700"><?php echo htmlspecialchars($chollo['titulo_chollo']); ?></h2>
-                            <p class="mt-1 text-sm text-slate-400">
-                                <?php echo htmlspecialchars($chollo['descripcion_chollo']); ?>
-                            </p>
-                        </div>
+                    <!-- Información del chollo -->
+                    <div class="mt-1 p-2 mb-10">
+                        <h2 class="text-slate-700 font-semibold"><?php echo htmlspecialchars($chollo['titulo_chollo']); ?></h2>
+                        <p class="mt-1 text-sm text-slate-400">
+                            <?php echo htmlspecialchars($chollo['descripcion_chollo']); ?>
+                        </p>
+                    </div>
 
-                        <!-- Contenedor para precio y botón -->
-                        <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center">
-                            <!-- Precio alineado a la izquierda -->
-                            <p class="text-lg font-bold text-blue-500">
-                                $<?php echo htmlspecialchars($chollo['precio_chollo']); ?>
-                            </p>
-                            <!-- Botón Añadir al carrito alineado a la derecha -->
-                            <div
-                                class="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" class="h-4 w-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                                </svg>
-                                <button class="text-sm">Add to cart</button>
-                            </div>
+                    <!-- Precio y botón -->
+                    <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center">
+                        <!-- Precio -->
+                        <p class="text-lg font-bold text-blue-500">
+                            $<?php echo htmlspecialchars($chollo['precio_chollo']); ?>
+                        </p>
+                        <!-- Botón Añadir al carrito -->
+                        <div
+                            class="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="h-4 w-4">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                            </svg>
+                            <button class="text-sm">Añadir</button>
                         </div>
-                    </a>
-                </article>
+                    </div>
+                </a>
+            </article>
+        <?php endforeach; ?>
+    </div>
+</section>
 
-            <?php endforeach; ?>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer class="py-6 bg-gray-200 text-gray-900">
