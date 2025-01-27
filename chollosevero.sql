@@ -44,8 +44,8 @@ CREATE TABLE `chollos` (
 --
 
 INSERT INTO `chollos` (`id_chollo`, `id_usuario`, `titulo_chollo`, `descripcion_chollo`, `precio_chollo`, `imagen_chollo`, `fecha_creacion`) VALUES
-(1, 1, 'Oferta en portátil HP', 'Portátil HP Pavilion con descuento del 20%. Ideal para estudiantes y profesionales.', 750.00, '/imagenes/foto1.jpg', '2025-01-24 00:00:00'),
-(2, 2, 'Auriculares Sony WH-1000XM4', 'Auriculares con cancelación de ruido y sonido de alta calidad. Oferta especial por tiempo limitado.', 300.00, '/imagenes/foto1.jpg', '2025-01-23 00:00:00'),
+(1, 1, 'Oferta en portátil HP', 'Portátil HP Pavilion con descuento del 20%. Ideal para estudiantes y profesionales.', 750.00, '/hpoferta/foto1.jpg', '2025-01-24 00:00:00'),
+(2, 2, 'Auriculares Sony WH-1000XM4', 'Auriculares con cancelación de ruido y sonido de alta calidad. Oferta especial por tiempo limitado.', 300.00, '/imagenes/auriculares.jpg', '2025-01-23 00:00:00'),
 (3, 3, 'Smartphone Samsung Galaxy S22', 'Teléfono de última generación con descuento del 15%. ¡No te lo pierdas!', 999.99, '/imagenes/foto1.jpg', '2025-01-22 00:00:00'),
 (4, 4, 'Smartwatch Fitbit Versa 3', 'Reloj inteligente con monitorización de actividad física y funciones avanzadas.', 199.99, '/imagenes/foto1.jpg', '2025-01-21 00:00:00');
 
