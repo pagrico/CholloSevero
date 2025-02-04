@@ -21,8 +21,9 @@ if ($stmt->rowCount() > 0) {
 
     // Verificar la contraseña usando password_verify
     if (password_verify($contrasenaIngresada, $hashAlmacenado)) {
-        // Si la contraseña es correcta, almacenar el usuario en la sesión
+        // Si la contraseña es correcta, almacenar el id y nombre del usuario en la sesión
         $_SESSION['usuario'] = $usuario["nombre_usuario"]; // Guardar el nombre del usuario en la sesión
+        $_SESSION['usuario_id'] = $usuario["id_usuario"]; // Guardar el ID del usuario en la sesión
         header("Location: index.php");  // Redirigir a index.php
         exit();  // Asegurarse de que no se ejecute más código
     } else {
