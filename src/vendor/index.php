@@ -2,7 +2,6 @@
 
 include "../conexion/conexion.php";
 
-
 // Obtener todos los chollos de la base de datos
 $sql = "SELECT id_chollo, id_usuario, titulo_chollo, descripcion_chollo, precio_chollo, imagen_chollo, fecha_creacion FROM chollos";
 $stmt = $conexion->prepare($sql);
@@ -19,7 +18,14 @@ $chollos = $stmt->fetchAll(PDO::FETCH_ASSOC); // Obtener todos los registros com
             class="mt-6 inline-block px-8 py-4 bg-blue-500 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-300 transform hover:scale-105">
             Añadir Chollo
         </a>
-
+    <?php endif; ?>
+    
+    <!-- Botón solo visible para el administrador (id_usuario = 1) -->
+    <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 1): ?>
+        <a href="admin.php"
+            class="mt-6 ml-4 inline-block px-8 py-4 bg-red-500 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300 transition-all duration-300 transform hover:scale-105">
+            Panel Admin
+        </a>
     <?php endif; ?>
 </div>
 
@@ -29,28 +35,22 @@ $chollos = $stmt->fetchAll(PDO::FETCH_ASSOC); // Obtener todos los registros com
         <?php foreach ($chollos as $chollo): ?>
             <article
                 class="relative rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
-                <!-- Redirige a detalles_chollo.php con el ID de la oferta -->
                 <a href="producto.php?id=<?php echo htmlspecialchars($chollo['id_chollo']); ?>">
-                    <!-- Contenedor de la imagen -->
                     <div class="relative flex items-end overflow-hidden rounded-xl">
                         <img src="<?php echo htmlspecialchars($chollo['imagen_chollo']); ?>"
                             alt="<?php echo htmlspecialchars($chollo['titulo_chollo']); ?>"
                             class="w-full h-48 object-cover rounded-xl" />
                     </div>
-                    <!-- Información del chollo -->
                     <div class="mt-1 p-2 mb-10">
-                        <h2 class="text-slate-700 font-semibold"><?php echo htmlspecialchars($chollo['titulo_chollo']); ?>
-                        </h2>
+                        <h2 class="text-slate-700 font-semibold"><?php echo htmlspecialchars($chollo['titulo_chollo']); ?></h2>
                         <p class="mt-1 text-sm text-slate-400">
                             <?php echo htmlspecialchars($chollo['descripcion_chollo']); ?>
                         </p>
                     </div>
-                    <!-- Precio -->
                     <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center">
                         <p class="text-lg font-bold text-blue-500">
                             $<?php echo htmlspecialchars($chollo['precio_chollo']); ?>
                         </p>
-                        <!-- Botón Añadir al carrito -->
                         <div
                             class="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -67,9 +67,7 @@ $chollos = $stmt->fetchAll(PDO::FETCH_ASSOC); // Obtener todos los registros com
     </div>
 </section>
 
-
 <!-- Footer -->
 <? include "footer.php" ?>
 </body>
-
 </html>
